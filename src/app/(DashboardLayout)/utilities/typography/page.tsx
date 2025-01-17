@@ -16,7 +16,7 @@ const TypographyPage = () => {
               <Grid item sm={12}>
                 <BlankCard>
                   <CardContent>
-                    <Typography variant="h1">h1. Heading</Typography>
+                    <Typography variant="h1">h1. ds</Typography>
                     <Typography variant="body1" color="textSecondary">
                       font size: 30 | line-height: 45 | font weight: 500
                     </Typography>
