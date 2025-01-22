@@ -488,7 +488,15 @@ const RegisterForm = () => {
       )}
       {verified && (
 
-    <Box sx={{ backgroundColor: "#080A0C", minHeight: "100vh", padding: "20px" }}>
+    <Box sx={{
+      backgroundImage: 'url("/images/backgrounds/ibiza.JPG")',
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      minHeight: "100vh",
+      padding: "20px",
+    }}
+  >
       <Box
         sx={{
           maxWidth: "800px",
