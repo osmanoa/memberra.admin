@@ -59,8 +59,7 @@ const Verifier = ({
   
           if (response.ok) {
             setFetchedInviteCode(data.inviteCode);
-            console.log("Fetched Invite Code:", data.inviteCode); // Konsola yazdırma
-          } else {
+           } else {
             setErrorMessage(
               "Failed to fetch invite code for the provided phone number."
             );

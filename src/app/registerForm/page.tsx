@@ -303,13 +303,11 @@ const RegisterForm = () => {
           }, {})
         : {};
   
-    console.log("Current Step Form Data:", currentStepData);
-  
+   
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      console.log("Final Form Data:", formData);
-      handleSubmit();
+       handleSubmit();
     }
   };
   
@@ -387,38 +385,79 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("Submitting Form Data:", formData);
+    // console.log("Submitting Form Data:", formData);
   
-    // Check if inviteCode is present
     if (!inviteCode) {
-      console.error("Invite code is missing!");
-      alert("Please verify your invite code before submitting the form."); // Optional user feedback
+      alert("Please verify your invite code before submitting the form.");
       return;
     }
   
     setIsLoading(true);
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("inviteCode", inviteCode);
+      // Konsolda yazılan tüm alanları backend'e göndermek için formData'yı düzenle
+      const formDataToSend = {
+        inviteCode,
+        name: `${formData.firstName} ${formData.lastName}`,
+        phoneNumber: formData.contactNumber,
+        gender: formData.gender || null,
+        occupation: formData.occupation || null,
+        maritalStatus: formData.maritalStatus || null,
+        location: formData.livingSituation || null,
+        referral: formData.referralSource || null,
+        beliefs: formData.beliefs || null,
+        numberOfChildren: formData.numberOfChildren || 0,
+        health: formData.healthConditions || [],
+        mentalConditions: formData.mentalConditions || [],
+        familyMentalHealth: formData.familyMentalHealth || null,
+        currentMedicalConditions: formData.currentMedicalConditions || null,
+        exerciseRoutine: formData.exerciseRoutine || null,
+        prescriptionMedications: formData.prescriptionMedications || null,
+        substanceAbuseTreatment: formData.substanceAbuseTreatment || null,
+        petAllergies: formData.petAllergies || null,
+        intentionsAndGoals: {
+          hopingToGain: formData.hopingToGain || null,
+          retreatIntentions: formData.retreatIntentions || null,
+          relationships: formData.relationships || null,
+          challenges: formData.challenges || null,
+          lifeImprovements: formData.lifeImprovements || null,
+          mindfulnessPractices: formData.mindfulnessPractices || null,
+          personalGrowthMethods: formData.personalGrowthMethods || null,
+          concerns: formData.concerns || null,
+        },
+        medications: {
+          prescriptionMedications: formData.prescriptionMedications || null,
+          currentMedications: formData.currentMedications || null,
+          supplements: formData.supplements || null,
+          substances: formData.substances || null,
+          negativeEffects: formData.negativeEffects || null,
+          substanceAbuseTreatment: formData.substanceAbuseTreatment || null,
+        },
+        emergencyContact: {
+          name: formData.emergencyContactName || null,
+          number: formData.emergencyContactNumber || null,
+        },
+        allergies: {
+          food: formData.foodAllergies || null,
+          pet: formData.petAllergies || null,
+          other: formData.otherAllergies || null,
+        },
+      };
   
-      Object.keys(formData).forEach((key) => {
-        const value = formData[key];
-        if (value !== undefined && value !== null) {
-          formDataToSend.append(key, typeof value === "object" ? JSON.stringify(value) : value);
+      const response = await fetch(
+        "https://backendaws.memberra.co/users/update-by-invite-code",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formDataToSend),
         }
-      });
-  
-      const response = await fetch("https://backendaws.memberra.co/users/update-by-invite-code", {
-        method: "PUT",
-        body: formDataToSend,
-      });
+      );
   
       if (response.ok) {
-        console.log("Form submitted successfully");
-        setIsSubmissionSuccess(true); // Show the success modal
-
+        // console.log("Form submitted successfully");
+        setIsSubmissionSuccess(true);
       } else {
-        console.error("Error submitting form:", await response.json());
+        const errorData = await response.json();
+        console.error("Error submitting form:", errorData);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -428,6 +467,8 @@ const RegisterForm = () => {
   };
   
   
+
+  
   
   return (
     <>
@@ -435,11 +476,11 @@ const RegisterForm = () => {
         <Verifier
   onInviteVerified={(verified, inviteCode) => {
     if (verified && inviteCode) {
-      console.log("Invite code verified:", inviteCode);
+      // console.log("Invite code verified:", inviteCode);
       setInviteCode(inviteCode); // Set the invite code
       setVerified(true); // Only set verified to true after setting the invite code
     } else {
-      console.log("Invite code verification failed.");
+      // console.log("Invite code verification failed.");
     }
 
   }}
