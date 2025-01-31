@@ -51,7 +51,7 @@ const Verifier = ({
           const fullPhoneNumber =
             (selectedCountry?.dial_code || "") + phoneNumber.replace(/\s/g, "");
           const response = await fetch(
-            `https://backendaws.memberra.co/fetch-invited-user?phoneNumber=${encodeURIComponent(
+            `https://backend.memberra.co/fetch-invited-user?phoneNumber=${encodeURIComponent(
               fullPhoneNumber
             )}`
           );

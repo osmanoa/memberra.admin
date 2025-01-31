@@ -444,7 +444,7 @@ const RegisterForm = () => {
       };
   
       const response = await fetch(
-        "https://backendaws.memberra.co/users/update-by-invite-code",
+        "https://backend.memberra.co/users/update-by-invite-code",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
