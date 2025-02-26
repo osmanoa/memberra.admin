@@ -1,74 +1,66 @@
-import {
-  IconAperture,
-  IconCopy,
-  IconLayoutDashboard,
-  IconLogin,
-  IconMoodHappy,
-  IconTypography,
-  IconUserPlus,
-} from "@tabler/icons-react";
+import { RiHome2Fill } from "react-icons/ri";
+import { FaStar } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
+import { IoExtensionPuzzle } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 
 import { uniqueId } from "lodash";
 
 const Menuitems = [
   {
+    id: uniqueId(),
     navlabel: true,
     subheader: "Home",
+    icon: RiHome2Fill,
+    items: [
+      {
+        id: uniqueId(),
+        title: "Onboarding",
+        // icon: FaWpforms,
+        href: "/",
+      },
+      {
+        id: uniqueId(),
+        title: "Memberras",
+        href: "/memberras",
+      },
+      {
+        id: uniqueId(),
+        title: "Invitees",
+        href: "/invitees",
+      },
+    ],
   },
-
   {
     id: uniqueId(),
-    title: "Dashboard",
-    icon: IconLayoutDashboard,
-    href: "/",
-  },
-  {
     navlabel: true,
-    subheader: "Utilities",
+    subheader: "Features",
+    icon: FaStar,
   },
   {
     id: uniqueId(),
-    title: "Typography",
-    icon: IconTypography,
-    href: "/utilities/typography",
-  },
-  {
-    id: uniqueId(),
-    title: "Shadow",
-    icon: IconCopy,
-    href: "/utilities/shadow",
-  },
-  {
     navlabel: true,
-    subheader: "Auth",
+    subheader: "Users",
+    icon: FaUser,
   },
   {
     id: uniqueId(),
-    title: "Login",
-    icon: IconLogin,
-    href: "/authentication/login",
-  },
-  {
-    id: uniqueId(),
-    title: "Register",
-    icon: IconUserPlus,
-    href: "/authentication/register",
-  },
-  {
     navlabel: true,
-    subheader: "Extra",
+    subheader: "Pricing",
+    icon: FaDollarSign,
   },
   {
     id: uniqueId(),
-    title: "Icons",
-    icon: IconMoodHappy,
-    href: "/icons",
+    navlabel: true,
+    subheader: "Integrations",
+    icon: IoExtensionPuzzle,
   },
   {
     id: uniqueId(),
-    title: "Sample Page",
-    icon: IconAperture,
-    href: "/sample-page",
+    navlabel: true,
+    subheader: "Settings",
+    icon: IoSettingsSharp,
   },
 ];
 
