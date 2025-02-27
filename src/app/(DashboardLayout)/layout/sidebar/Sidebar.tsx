@@ -2,6 +2,7 @@ import { useMediaQuery, Box, Drawer } from "@mui/material";
 import SidebarItems from "./SidebarItems";
 import { Upgrade } from "./Updrade";
 import { Sidebar, Logo } from 'react-mui-sidebar';
+import UserProfile from "./UserProfile";
 
 interface ItemType {
   isMobileSidebarOpen: boolean;
@@ -22,14 +23,12 @@ const MSidebar = ({
   const scrollbarStyles = {
     '&::-webkit-scrollbar': {
       width: '7px',
-
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: '#eff2f7',
       borderRadius: '15px',
     },
   };
-
 
   if (lgUp) {
     return (
@@ -72,13 +71,16 @@ const MSidebar = ({
               {/* ------------------------------------------- */}
               {/* Logo */}
               {/* ------------------------------------------- */}
-              <Logo img="/images/logos/dark-logo.svg" />
+              <Logo img="/images/logos/m-logo.svg" />
               <Box>
                 {/* ------------------------------------------- */}
                 {/* Sidebar Items */}
                 {/* ------------------------------------------- */}
                 <SidebarItems />
-                <Upgrade />
+                <Box sx={{ mt: 10 }}>
+                  <UserProfile />
+                </Box>
+                {/* <Upgrade /> */}
               </Box>
             </Sidebar >
           </Box>
@@ -117,7 +119,11 @@ const MSidebar = ({
           {/* ------------------------------------------- */}
           {/* Logo */}
           {/* ------------------------------------------- */}
-          <Logo img="/images/logos/dark-logo.svg" />
+          <img
+            src="/images/logos/m-logo.svg"
+            alt="Logo"
+            style={{ width: '100px', height: 'auto' }}
+          />
           {/* ------------------------------------------- */}
           {/* Sidebar Items */}
           {/* ------------------------------------------- */}

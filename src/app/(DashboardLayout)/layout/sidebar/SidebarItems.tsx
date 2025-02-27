@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Box, List } from "@mui/material";
 import NavItem from "./NavItem";
 import NavGroup from "./NavGroup/NavGroup";
+import UserProfile from './UserProfile';
 
 const SidebarItems = ({ toggleMobileSidebar }: any) => {
   const pathname = usePathname();
