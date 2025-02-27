@@ -9,6 +9,7 @@ const MainWrapper = styled("div")(() => ({
   display: "flex",
   minHeight: "100vh",
   width: "100%",
+  backgroundColor: "#040A1E",
 }));
 
 const PageWrapper = styled("div")(() => ({
@@ -17,7 +18,7 @@ const PageWrapper = styled("div")(() => ({
   paddingBottom: "60px",
   flexDirection: "column",
   zIndex: 1,
-  backgroundColor: "transparent",
+  backgroundColor: "#040A1E",
 }));
 
 interface Props {

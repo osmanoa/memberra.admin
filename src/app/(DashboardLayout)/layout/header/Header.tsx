@@ -18,7 +18,7 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
-    background: theme.palette.background.paper,
+    background: "#040A1E",
     justifyContent: 'center',
     backdropFilter: 'blur(4px)',
     [theme.breakpoints.up('lg')]: {
