@@ -27,19 +27,19 @@ const NavGroup = ({ item }: ItemType) => {
     fontWeight: "700",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(0),
-    color: theme.palette.text.primary,
+    color: "#AEB9E1",
     lineHeight: "26px",
     padding: "3px 12px",
-    cursor: "pointer", // Change cursor to pointer
+    cursor: "pointer",
     display: "flex",
-    alignItems: "center", // Align items vertically
+    alignItems: "center",
   }));
 
   return (
     <>
       <ListSubheaderStyle onClick={() => setOpen(!open)}>
         {item.icon && (
-          <span style={{ marginRight: "12px" }}>
+          <span style={{ marginRight: "12px", color: "#AEB9E1" }}>
             <item.icon stroke={1.5} size="1rem" />
           </span>
         )}

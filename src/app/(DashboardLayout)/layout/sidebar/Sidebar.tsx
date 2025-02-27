@@ -49,6 +49,7 @@ const MSidebar = ({
             sx: {
               boxSizing: "border-box",
               ...scrollbarStyles,
+              backgroundColor: "#081028",
             },
           }}
         >
@@ -99,6 +100,7 @@ const MSidebar = ({
         sx: {
           boxShadow: (theme) => theme.shadows[8],
           ...scrollbarStyles,
+          backgroundColor: "#081028",
         },
       }}
     >

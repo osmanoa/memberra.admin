@@ -34,7 +34,7 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
   const Icon = item.icon;
   const theme = useTheme();
   const itemIcon =
-    item.href && Icon ? <Icon stroke={1.5} size="1.3rem" /> : null;
+    item.href && Icon ? <Icon stroke={1.5} size="1.3rem" style={{ color: "#FFFFFF" }} /> : null;
 
   const ListItemStyled = styled(ListItem)(() => ({
     padding: 0,
@@ -44,11 +44,11 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
       padding: "8px 10px",
       borderRadius: "8px",
       backgroundColor: level > 1 ? "transparent !important" : "inherit",
-      color: theme.palette.text.secondary,
+      color: "#AEB9E1",
       paddingLeft: "10px",
       "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-        color: theme.palette.primary.main,
+        backgroundColor: "#0B1739",
+        color: "#FFFFFF",
       },
       "&.Mui-selected": {
         color: "white",
