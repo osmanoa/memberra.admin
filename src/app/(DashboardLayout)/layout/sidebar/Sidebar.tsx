@@ -124,7 +124,6 @@ const MSidebar = ({
           <img
             src="/images/logos/m-logo.svg"
             alt="Logo"
-            style={{ width: '100px', height: 'auto' }}
           />
           {/* ------------------------------------------- */}
           {/* Sidebar Items */}

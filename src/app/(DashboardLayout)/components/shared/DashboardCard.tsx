@@ -11,6 +11,8 @@ type Props = {
   headsubtitle?: string | JSX.Element;
   children?: JSX.Element;
   middlecontent?: string | JSX.Element;
+  bgColor?: string;
+  titleColor?: string;
 };
 
 const DashboardCard = ({
@@ -23,13 +25,17 @@ const DashboardCard = ({
   headtitle,
   headsubtitle,
   middlecontent,
+  bgColor = "#1E1E2F",
+  titleColor = "#FFFFFF",
 }: Props) => {
   return (
-    <Card sx={{ padding: 0 }} elevation={9} variant={undefined}>
+    <Card sx={{ padding: 0, backgroundColor: bgColor }} elevation={9} variant={undefined}>
       {cardheading ? (
         <CardContent>
-          <Typography variant="h5">{headtitle}</Typography>
-          <Typography variant="subtitle2" color="textSecondary">
+          <Typography variant="h5" sx={{ color: titleColor }}>
+            {headtitle}
+          </Typography>
+          <Typography variant="subtitle2" color="textSecondary" sx={{ color: titleColor }}>
             {headsubtitle}
           </Typography>
         </CardContent>
@@ -44,10 +50,10 @@ const DashboardCard = ({
               mb={3}
             >
               <Box>
-                {title ? <Typography variant="h5">{title}</Typography> : ""}
+                {title ? <Typography sx={{ color: titleColor }} variant="h4">{title}</Typography> : ""}
 
                 {subtitle ? (
-                  <Typography variant="subtitle2" color="textSecondary">
+                  <Typography variant="subtitle2" color="textSecondary" sx={{ color: titleColor }}>
                     {subtitle}
                   </Typography>
                 ) : (
