@@ -8,7 +8,7 @@ const UserProfile = () => {
         <Grid item>
           <Avatar
             alt="User Name"
-            src="/path/to/avatar.jpg"
+            // src="/path/to/avatar.jpg"
             sx={{ width: 50, height: 50 }}
           />
         </Grid>

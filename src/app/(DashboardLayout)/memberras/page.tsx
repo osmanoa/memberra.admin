@@ -396,7 +396,24 @@ const MemberTable = ({
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
             labelDisplayedRows={() => null}
-            sx={{ backgroundColor: "#0B1739", color: "#FFFFFF" }}
+            sx={{
+              //   backgroundColor: "red",
+                color: "#FFFFFF",
+                "& .MuiTablePagination-actions button": {
+                  color: "#FFFFFF",
+                  // backgroundColor: "red",
+                  "&:hover": {
+                    backgroundColor: "#0B1739",
+                  },
+                },
+                "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows": {
+                  color: "#FFFFFF",
+                },
+                "& .MuiTablePagination-select": {
+                  // color: "#FFFFFF",
+                  // backgroundColor: "#0B1739",
+                },
+              }}
           />
         </Box>
       </Box>
