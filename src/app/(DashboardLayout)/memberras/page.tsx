@@ -292,7 +292,7 @@ const MemberTable = ({
                       }}
                     >
                       <Avatar
-                        sx={{ width: 36, height: 36, marginRight: 2 }}
+                        sx={{ width: 28, height: 28, marginRight: 2 }}
                         src={user.photo[0]}
                         onClick={() =>
                           handleAvatarClick({
@@ -304,7 +304,7 @@ const MemberTable = ({
                       <div>
                         {user.name ?? "Name not available"}
                         <Typography variant="body2" color="#AEB9E1">
-                          {user.email ?? "Email not available"}
+                          {user.email ?? ""}
                         </Typography>
                       </div>
                     </TableCell>
