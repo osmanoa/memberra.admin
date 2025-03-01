@@ -21,10 +21,13 @@ import { HiUsers } from "react-icons/hi2";
 import { FaUser, FaHeart } from "react-icons/fa";
 import { PiDotsThreeCircleFill } from "react-icons/pi";
 import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
 
 const usersData = [
   {
     name: "John Doe",
+    email: "john.doe@example.com",
     phone: "(123) 456-7890",
     location: "United States",
     company: "Company A",
@@ -32,6 +35,7 @@ const usersData = [
   },
   {
     name: "Jane Smith",
+    email: "jane.smith@example.com",
     phone: "(234) 567-8901",
     location: "Canada",
     company: "Company B",
@@ -40,6 +44,7 @@ const usersData = [
   {
     name: "Alice Johnson",
     phone: "(345) 678-9012",
+    email: "john.doe@example.com",
     location: "United Kingdom",
     company: "Company C",
     status: "Online",
@@ -48,12 +53,14 @@ const usersData = [
     name: "Bob Brown",
     phone: "(456) 789-0123",
     location: "Australia",
+    email: "john.doe@example.com",
     company: "Company D",
     status: "Online",
   },
   {
     name: "Charlie Davis",
     phone: "(567) 890-1234",
+    email: "john.doe@example.com",
     location: "Germany",
     company: "Company E",
     status: "Offline",
@@ -61,6 +68,7 @@ const usersData = [
   {
     name: "Diana Evans",
     phone: "(678) 901-2345",
+    email: "john.doe@example.com",
     location: "France",
     company: "Company F",
     status: "Online",
@@ -95,342 +103,6 @@ const usersData = [
   },
   {
     name: "Oz Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Bob Brown",
-    phone: "(456) 789-0123",
-    location: "Australia",
-    company: "Company D",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Bob Brown",
-    phone: "(456) 789-0123",
-    location: "Australia",
-    company: "Company D",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Bob Brown",
-    phone: "(456) 789-0123",
-    location: "Australia",
-    company: "Company D",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
     phone: "(012) 345-6789",
     location: "Sweden",
     company: "Company J",
@@ -619,7 +291,7 @@ const MemberStatsRow = () => {
   ];
 
   return (
-    <Grid container mb={2} gap={4} wrap="nowrap" maxWidth={"100%"}>
+    <Grid container gap={3} wrap="nowrap" maxWidth={"100%"}>
       {memberStats.map((stat, index) => (
         <Grid
           item
@@ -640,13 +312,13 @@ const MemberStatsRow = () => {
             container
             alignItems="center"
             gap={3}
-            padding={2}
+            padding={1}
             justifyContent="center"
           >
             <Box
               sx={{
                 borderRadius: "50%",
-                padding: "10px",
+                // padding: "10px",
                 display: "flex",
                 width: "50px",
                 height: "50px",
@@ -661,7 +333,7 @@ const MemberStatsRow = () => {
               <Typography fontSize={14} color="#F2F2F2">
                 {stat.title}
               </Typography>
-              <Typography variant="body1" color="#AEB9E1" sx={{ mt: 1 }}>
+              <Typography variant="body1" color="#AEB9E1" >
                 {stat.count}
               </Typography>
             </Grid>
@@ -754,13 +426,26 @@ const MemberTable = () => {
                     key={index}
                     sx={{
                       backgroundColor: index % 2 === 0 ? "#081028" : "#0B1739",
-                      border: "none"
+                      border: "none",
                     }}
                   >
                     <TableCell
-                      sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
+                      sx={{ 
+                        color: "#FFFFFF", 
+                        fontSize: "12px", 
+                        border: "none", 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        // width: '150px'
+                      }}
                     >
-                      {user.name}
+                      <Avatar sx={{ width: 36, height: 36, marginRight: 2 }} />
+                      <div>
+                        {user.name}
+                        <Typography variant="body2" color="#AEB9E1">
+                          {user.email}
+                        </Typography>
+                      </div>
                     </TableCell>
                     <TableCell
                       sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
@@ -780,7 +465,28 @@ const MemberTable = () => {
                     <TableCell
                       sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
                     >
-                      {user.status}
+                      <Box
+                        sx={{
+                          backgroundColor: user.status === "Online" ? "#0A3942" : "#2B3453",
+                          color: user.status === "Online" ? "#11CA74" : "#AEB9E1",
+                          borderRadius: "4px",
+                          padding: "6px 10px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          fontWeight: 600,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            backgroundColor: user.status === "Online" ? "#11CA74" : "#AEB9E1",
+                            marginRight: "6px",
+                          }}
+                        />
+                        {user.status}
+                      </Box>
                     </TableCell>
                   </TableRow>
                 ))}

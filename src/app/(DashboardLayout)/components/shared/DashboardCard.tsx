@@ -32,7 +32,7 @@ const DashboardCard = ({
     <Card sx={{ padding: 0, backgroundColor: bgColor }} elevation={9} variant={undefined}>
       {cardheading ? (
         <CardContent>
-          <Typography variant="h5" sx={{ color: titleColor }}>
+          <Typography variant="h6" sx={{ color: titleColor}}>
             {headtitle}
           </Typography>
           <Typography variant="subtitle2" color="textSecondary" sx={{ color: titleColor }}>
@@ -44,13 +44,13 @@ const DashboardCard = ({
           {title ? (
             <Stack
               direction="row"
-              spacing={2}
+              // spacing={2}
               justifyContent="space-between"
               alignItems={"center"}
               mb={3}
             >
               <Box>
-                {title ? <Typography sx={{ color: titleColor }} variant="h4">{title}</Typography> : ""}
+                {title ? <Typography sx={{ color: titleColor }} variant="h5">{title}</Typography> : ""}
 
                 {subtitle ? (
                   <Typography variant="subtitle2" color="textSecondary" sx={{ color: titleColor }}>
