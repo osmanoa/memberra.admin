@@ -1,7 +1,7 @@
 import { useMediaQuery, Box, Drawer } from "@mui/material";
 import SidebarItems from "./SidebarItems";
 import { Upgrade } from "./Updrade";
-import { Sidebar, Logo } from 'react-mui-sidebar';
+import { Sidebar, Logo } from "react-mui-sidebar";
 import UserProfile from "./UserProfile";
 
 interface ItemType {
@@ -17,16 +17,15 @@ const MSidebar = ({
 }: ItemType) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
 
-  const sidebarWidth = "270px";
 
   // Custom CSS for short scrollbar
   const scrollbarStyles = {
-    '&::-webkit-scrollbar': {
-      width: '7px',
+    "&::-webkit-scrollbar": {
+      width: "7px",
     },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#eff2f7',
-      borderRadius: '15px',
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#eff2f7",
+      borderRadius: "15px",
     },
   };
 
@@ -34,7 +33,6 @@ const MSidebar = ({
     return (
       <Box
         sx={{
-          width: sidebarWidth,
           flexShrink: 0,
         }}
       >
@@ -50,6 +48,8 @@ const MSidebar = ({
               boxSizing: "border-box",
               ...scrollbarStyles,
               backgroundColor: "#081028",
+              border: "none",
+              width: "300px",
             },
           }}
         >
@@ -59,10 +59,11 @@ const MSidebar = ({
           <Box
             sx={{
               height: "100%",
+              paddingTop: "30px",
             }}
           >
             <Sidebar
-              width={'270px'}
+              width={"300px"}
               collapsewidth="80px"
               open={isSidebarOpen}
               themeColor="#5d87ff"
@@ -72,7 +73,17 @@ const MSidebar = ({
               {/* ------------------------------------------- */}
               {/* Logo */}
               {/* ------------------------------------------- */}
-              <Logo img="/images/logos/m-logo.svg" />
+              <Box
+                sx={{
+                  // display: "flex",
+                  // justifyContent: "center",
+                  mb: "50px",
+                  mt: "20px",
+                  ml: "36px", // Added margin left 3px
+                }}
+              >
+                <img src="/images/logos/m-logo.svg" alt="Logo" style={{ width: "170px", height: "auto" }} />
+              </Box>
               <Box>
                 {/* ------------------------------------------- */}
                 {/* Sidebar Items */}
@@ -83,7 +94,7 @@ const MSidebar = ({
                 </Box>
                 {/* <Upgrade /> */}
               </Box>
-            </Sidebar >
+            </Sidebar>
           </Box>
         </Drawer>
       </Box>
@@ -101,6 +112,7 @@ const MSidebar = ({
           boxShadow: (theme) => theme.shadows[8],
           ...scrollbarStyles,
           backgroundColor: "#081028",
+          border: "none",
         },
       }}
     >
@@ -109,7 +121,7 @@ const MSidebar = ({
       {/* ------------------------------------------- */}
       <Box px={2}>
         <Sidebar
-          width={'270px'}
+          width={"300px"}
           collapsewidth="80px"
           isCollapse={false}
           mode="light"
@@ -121,28 +133,29 @@ const MSidebar = ({
           {/* ------------------------------------------- */}
           {/* Logo */}
           {/* ------------------------------------------- */}
-          <img
-            src="/images/logos/m-logo.svg"
-            alt="Logo"
-          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 2,
+            }}
+          >
+            <img src="/images/logos/m-logo.svg" alt="Logo" />
+          </Box>
           {/* ------------------------------------------- */}
           {/* Sidebar Items */}
           {/* ------------------------------------------- */}
           <SidebarItems />
-          <Upgrade />
+          <Box sx={{ mt: 10 }}>
+            <UserProfile />
+          </Box>
         </Sidebar>
       </Box>
       {/* ------------------------------------------- */}
       {/* Sidebar For Mobile */}
       {/* ------------------------------------------- */}
-
     </Drawer>
   );
 };
 
 export default MSidebar;
-
-
-
-
-

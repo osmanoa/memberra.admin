@@ -36,7 +36,7 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
   const itemIcon =
     item.href && Icon ? <Icon stroke={1.5} size="1.3rem" style={{ color: "#FFFFFF" }} /> : null;
 
-  const ListItemStyled = styled(ListItem)(() => ({
+  const ListItemStyled = styled(ListItem)(({ selected }) => ({
     padding: 0,
     ".MuiButtonBase-root": {
       whiteSpace: "nowrap",
@@ -45,10 +45,12 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
       borderRadius: "8px",
       backgroundColor: level > 1 ? "transparent !important" : "inherit",
       color: "#AEB9E1",
-      paddingLeft: "10px",
+      // paddingLeft: "20px",
+      borderLeft: selected ? "3px solid #49beff" : "none",
       "&:hover": {
         backgroundColor: "#0B1739",
         color: "#FFFFFF",
+        borderLeft: "3px solid #49beff",
       },
       "&.Mui-selected": {
         color: "white",

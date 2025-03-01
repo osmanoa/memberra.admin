@@ -15,19 +15,22 @@ type NavGroup = {
 
 interface ItemType {
   item: NavGroup;
+  isSelected: boolean;
+  isOpen: boolean;
+  onClick: () => void;
 }
 
-const NavGroup = ({ item }: ItemType) => {
-  const [open, setOpen] = useState(false); // State to manage collapse
+const NavGroup = ({ item, isSelected, isOpen, onClick }: ItemType) => {
+  const [open, setOpen] = useState(false); // Remove local open state
 
   const ListSubheaderStyle = styled((props: Theme | any) => (
     <ListSubheader disableSticky {...props} />
-  ))(({ theme }) => ({
+  ))(({ theme, open }) => ({
     ...theme.typography.overline,
     fontWeight: "700",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(0),
-    color: "#AEB9E1",
+    color: open ? "#49beff" : "#AEB9E1", // Change color to blue when open
     lineHeight: "26px",
     padding: "3px 12px",
     cursor: "pointer",
@@ -37,9 +40,9 @@ const NavGroup = ({ item }: ItemType) => {
 
   return (
     <>
-      <ListSubheaderStyle onClick={() => setOpen(!open)}>
+      <ListSubheaderStyle onClick={() => { setOpen(!open); onClick(); }} open={isOpen}>
         {item.icon && (
-          <span style={{ marginRight: "12px", color: "#AEB9E1" }}>
+          <span style={{ marginRight: "12px", color: isOpen ? "#49beff" : "#AEB9E1" }}>
             <item.icon stroke={1.5} size="1rem" />
           </span>
         )}
@@ -52,14 +55,14 @@ const NavGroup = ({ item }: ItemType) => {
             gap: "8px",
           }}
         >
-          {open ? (
-            <ExpandLessIcon style={{ fontSize: "1rem" }} />
+          {isOpen ? (
+            <ExpandLessIcon style={{ fontSize: "1rem", color: "#49beff" }} />
           ) : (
-            <ExpandMoreIcon style={{ fontSize: "1rem" }} />
+            <ExpandMoreIcon style={{ fontSize: "1rem", color: "#AEB9E1" }} />
           )}
         </span>
       </ListSubheaderStyle>
-      <Collapse in={open}>
+      <Collapse in={isOpen}>
         {item.items &&
           item.items.map((subItem) => (
             <NavItem
@@ -76,6 +79,9 @@ const NavGroup = ({ item }: ItemType) => {
 
 NavGroup.propTypes = {
   item: PropTypes.object,
+  isSelected: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default NavGroup;
