@@ -19,6 +19,8 @@ const PageWrapper = styled("div")(() => ({
   flexDirection: "column",
   zIndex: 1,
   backgroundColor: "#040A1E",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 interface Props {
@@ -55,20 +57,26 @@ export default function RootLayout({
         {/* ------------------------------------------- */}
         {/* PageContent */}
         {/* ------------------------------------------- */}
-        <Container
-          sx={{
-            paddingTop: "20px",
-            maxWidth: "1200px",
+        <div
+          style={{
+            paddingTop: "40px",
+            width: isSidebarOpen ? "calc(100% - 300px)" : "100%",
+            maxWidth: "1300px",
+            display: "flex",
+            marginLeft: "300px",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
           }}
         >
           {/* ------------------------------------------- */}
           {/* Page Route */}
           {/* ------------------------------------------- */}
-          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
+          <Box sx={{ minHeight: "calc(100vh - 170px)", width: '100%' }}>{children}</Box>
           {/* ------------------------------------------- */}
           {/* End Page */}
           {/* ------------------------------------------- */}
-        </Container>
+        </div>
       </PageWrapper>
     </MainWrapper>
   );
