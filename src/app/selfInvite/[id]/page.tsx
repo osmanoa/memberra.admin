@@ -91,6 +91,15 @@ const SelfInvitePage = () => {
               label="Full Name"
               variant="outlined"
               sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+              inputProps={{ 
+                style: { color: "#FFFFFF" },
+                pattern: "[A-Za-z ]*", // Restrict input to letters and spaces
+                onKeyPress: (event) => {
+                  if (!/[A-Za-z ]/.test(event.key)) {
+                    event.preventDefault(); // Prevent non-letter input
+                  }
+                }
+              }} 
             />
           </Grid>
           <Grid item xs={12} sx={{ display: "flex", gap: "10px" }}>
@@ -112,7 +121,17 @@ const SelfInvitePage = () => {
               fullWidth
               label="Phone Number"
               variant="outlined"
+              type="tel"
               sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+              inputProps={{ 
+                style: { color: "#FFFFFF" },
+                pattern: "[0-9]*", // Restrict input to digits
+                onKeyPress: (event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault(); // Prevent non-numeric input
+                  }
+                }
+              }} 
             />
           </Grid>
           <Grid item xs={12}>
@@ -120,16 +139,18 @@ const SelfInvitePage = () => {
               fullWidth
               label="Email"
               variant="outlined"
+              type="email"
               sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+              inputProps={{ style: { color: "#FFFFFF" } }}
             />
           </Grid>
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant="contained"
               color="primary"
-              sx={{ width: "40%", mt: 3, height: "50px" }} // Full width and margin top
+              sx={{ width: "40%", mt: 3, height: "50px", fontSize: "16px", fontWeight: "semibold" }} // Full width and margin top
             >
-              Submit
+              Request Invitation
             </Button>
           </Grid>
         </Grid>
