@@ -20,165 +20,12 @@ import { SlMagnifier } from "react-icons/sl";
 import { HiUsers } from "react-icons/hi2";
 import { FaUser, FaHeart } from "react-icons/fa";
 import { PiDotsThreeCircleFill } from "react-icons/pi";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import Chip from "@mui/material/Chip";
-
-const usersData = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    email: "john.doe@example.com",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Bob Brown",
-    phone: "(456) 789-0123",
-    location: "Australia",
-    email: "john.doe@example.com",
-    company: "Company D",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    email: "john.doe@example.com",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    email: "john.doe@example.com",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "Oz Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-  {
-    name: "John Doe",
-    phone: "(123) 456-7890",
-    location: "United States",
-    company: "Company A",
-    status: "Online",
-  },
-  {
-    name: "Jane Smith",
-    phone: "(234) 567-8901",
-    location: "Canada",
-    company: "Company B",
-    status: "Offline",
-  },
-  {
-    name: "Alice Johnson",
-    phone: "(345) 678-9012",
-    location: "United Kingdom",
-    company: "Company C",
-    status: "Online",
-  },
-  {
-    name: "Bob Brown",
-    phone: "(456) 789-0123",
-    location: "Australia",
-    company: "Company D",
-    status: "Online",
-  },
-  {
-    name: "Charlie Davis",
-    phone: "(567) 890-1234",
-    location: "Germany",
-    company: "Company E",
-    status: "Offline",
-  },
-  {
-    name: "Diana Evans",
-    phone: "(678) 901-2345",
-    location: "France",
-    company: "Company F",
-    status: "Online",
-  },
-  {
-    name: "Ethan Foster",
-    phone: "(789) 012-3456",
-    location: "Italy",
-    company: "Company G",
-    status: "Offline",
-  },
-  {
-    name: "Fiona Green",
-    phone: "(890) 123-4567",
-    location: "Spain",
-    company: "Company H",
-    status: "Online",
-  },
-  {
-    name: "George Harris",
-    phone: "(901) 234-5678",
-    location: "Netherlands",
-    company: "Company I",
-    status: "Online",
-  },
-  {
-    name: "Hannah Ivers",
-    phone: "(012) 345-6789",
-    location: "Sweden",
-    company: "Company J",
-    status: "Offline",
-  },
-];
+import { getUsers } from "@/lib/api";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const Navbar = () => {
   return (
@@ -333,7 +180,7 @@ const MemberStatsRow = () => {
               <Typography fontSize={14} color="#F2F2F2">
                 {stat.title}
               </Typography>
-              <Typography variant="body1" color="#AEB9E1" >
+              <Typography variant="body1" color="#AEB9E1">
                 {stat.count}
               </Typography>
             </Grid>
@@ -344,7 +191,13 @@ const MemberStatsRow = () => {
   );
 };
 
-const MemberTable = () => {
+const MemberTable = ({
+  users,
+  handleAvatarClick,
+}: {
+  users: any[];
+  handleAvatarClick: (user: { image: string; name: string }) => void;
+}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -419,7 +272,7 @@ const MemberTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {usersData
+              {users
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user, index) => (
                   <TableRow
@@ -430,45 +283,71 @@ const MemberTable = () => {
                     }}
                   >
                     <TableCell
-                      sx={{ 
-                        color: "#FFFFFF", 
-                        fontSize: "12px", 
-                        border: "none", 
-                        display: 'flex', 
-                        alignItems: 'center',
-                        // width: '150px'
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        border: "none",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
-                      <Avatar sx={{ width: 36, height: 36, marginRight: 2 }} />
+                      <Avatar
+                        sx={{ width: 36, height: 36, marginRight: 2 }}
+                        src={user.photo[0]}
+                        onClick={() =>
+                          handleAvatarClick({
+                            image: user.photo[0],
+                            name: user.name ?? "Name not available",
+                          })
+                        }
+                      />
                       <div>
-                        {user.name}
+                        {user.name ?? "Name not available"}
                         <Typography variant="body2" color="#AEB9E1">
-                          {user.email}
+                          {user.email ?? "Email not available"}
                         </Typography>
                       </div>
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        border: "none",
+                      }}
                     >
-                      {user.phone}
+                      {user.phoneNumber ?? "Phone not available"}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        border: "none",
+                      }}
                     >
-                      {user.location}
+                      {user.location ?? "Location not available"}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        border: "none",
+                      }}
                     >
-                      {user.company}
+                      {user.work?.company ?? "Company not available"}
                     </TableCell>
                     <TableCell
-                      sx={{ color: "#FFFFFF", fontSize: "14px", border: "none" }}
+                      sx={{
+                        color: "#FFFFFF",
+                        fontSize: "14px",
+                        border: "none",
+                      }}
                     >
                       <Box
                         sx={{
-                          backgroundColor: user.status === "Online" ? "#0A3942" : "#2B3453",
-                          color: user.status === "Online" ? "#11CA74" : "#AEB9E1",
+                          backgroundColor:
+                            user.status === "Online" ? "#0A3942" : "#2B3453",
+                          color:
+                            user.status === "Online" ? "#11CA74" : "#AEB9E1",
                           borderRadius: "4px",
                           padding: "6px 10px",
                           display: "inline-flex",
@@ -481,7 +360,8 @@ const MemberTable = () => {
                             width: "6px",
                             height: "6px",
                             borderRadius: "50%",
-                            backgroundColor: user.status === "Online" ? "#11CA74" : "#AEB9E1",
+                            backgroundColor:
+                              user.status === "Online" ? "#11CA74" : "#AEB9E1",
                             marginRight: "6px",
                           }}
                         />
@@ -493,14 +373,24 @@ const MemberTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mt: 2,
+          }}
+        >
           <Typography sx={{ color: "#FFFFFF" }}>
-            {`${page * rowsPerPage + 1}-${Math.min((page + 1) * rowsPerPage, usersData.length)} of ${usersData.length} Users`}
+            {`${page * rowsPerPage + 1}-${Math.min(
+              (page + 1) * rowsPerPage,
+              users.length
+            )} of ${users.length} Users`}
           </Typography>
           <TablePagination
             rowsPerPageOptions={[10, 25, 50]}
             component="div"
-            count={usersData.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -515,6 +405,39 @@ const MemberTable = () => {
 };
 
 const Memberras = () => {
+  const [users, setUsers] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<{
+    image: string;
+    name: string;
+  } | null>(null);
+
+  const handleAvatarClick = (user: { image: string; name: string }) => {
+    setSelectedUser(user);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedUser(null);
+  };
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const users = await getUsers();
+        users.forEach((user: any) => {
+          user.status = Math.random() < 0.5 ? "Online" : "Offline";
+        });
+        setUsers(users);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <PageContainer title="Memberras" description="this is Memberras">
       <Grid container spacing={4}>
@@ -525,9 +448,33 @@ const Memberras = () => {
           <MemberStatsRow />
         </Grid>
         <Grid item xs={12}>
-          <MemberTable />
+          <MemberTable users={users} handleAvatarClick={handleAvatarClick} />
         </Grid>
       </Grid>
+      <Dialog open={openModal} onClose={handleCloseModal}>
+        {selectedUser && (
+          <>
+            <DialogTitle
+              sx={{
+                backgroundColor: "#081028",
+                fontSize: "24px",
+                fontWeight: "bold",
+                color: "#FFFFFF",
+                padding: "30px",
+              }}
+            >
+              {selectedUser.name}
+            </DialogTitle>
+            <DialogContent sx={{ backgroundColor: "#081028", padding: "40px" }}>
+              <img
+                src={selectedUser.image}
+                alt="User Avatar"
+                style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+              />
+            </DialogContent>
+          </>
+        )}
+      </Dialog>
     </PageContainer>
   );
 };
