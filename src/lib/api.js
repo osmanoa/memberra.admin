@@ -1,15 +1,16 @@
 import axios from 'axios';
 
 // Constants
-const TestVenueId = '67962ca0fedd939f3b29bde1';
-const VenueHeaderKey = 'x-memberra-venue-id';
-const localApiBaseUrl = 'http://localhost:3005';
+// const TestVenueId = '67962ca0fedd939f3b29bde1';
+// const VenueHeaderKey = 'x-memberra-venue-id';
+// const localApiBaseUrl = 'http://localhost:3005';
+
 const timeout = 10000;
 
 
 // Axios instance
 export const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || localApiBaseUrl,
+    baseURL: "https://backend.memberra.co" || localApiBaseUrl,
     timeout: timeout,
     headers: {
         'Content-Type': 'application/json',
@@ -18,15 +19,15 @@ export const api = axios.create({
 });
 
 // Request interceptor
-api.interceptors.request.use(
-    (config) => {
-        config.headers[VenueHeaderKey] = TestVenueId;
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+// api.interceptors.request.use(
+//     (config) => {
+//         config.headers[VenueHeaderKey] = TestVenueId;
+//         return config;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     }
+// );
 
 // Response interceptor
 api.interceptors.response.use(
@@ -55,6 +56,28 @@ export const getUsers = async () => {
 export const getPendingUsers = async () => {
     try {
         const url = "/users/pending";
+        const response = await api.get(url);
+        return response.data;
+    } catch (error) {
+        console.error("Error", error);
+        throw error;
+    }
+}
+
+export const inviteUser = async (data) => {
+    try {
+        const url = "/invite-member";
+        const response = await api.post(url, data);
+        return response.data;
+    } catch (error) {
+        console.error("Error", error);
+        throw error;
+    }
+}
+
+export const getVenues = async () => {
+    try {
+        const url = "/venues";
         const response = await api.get(url);
         return response.data;
     } catch (error) {
