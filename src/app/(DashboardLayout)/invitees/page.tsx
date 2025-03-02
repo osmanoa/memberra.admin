@@ -142,11 +142,15 @@ const MemberTable = ({
   const handleApproveSelected = () => {
     const selectedUsernames = Array.from(selectedUsers).map(index => users[index]._id);
     console.log("Approved Users:", selectedUsernames);
+    // TODO: add API call to approve users
+    setSelectedUsers(new Set());
   };
 
   const handleDisapproveSelected = () => {
     const selectedUsernames = Array.from(selectedUsers).map(index => users[index]._id);
     console.log("Disapproved Users:", selectedUsernames);
+    // TODO: add API call to disapprove users
+    setSelectedUsers(new Set());
   };
 
   return (
@@ -393,11 +397,9 @@ const MemberTable = ({
             onRowsPerPageChange={handleChangeRowsPerPage}
             labelDisplayedRows={() => null}
             sx={{
-              //   backgroundColor: "red",
               color: "#FFFFFF",
               "& .MuiTablePagination-actions button": {
                 color: "#FFFFFF",
-                // backgroundColor: "red",
                 "&:hover": {
                   backgroundColor: "#A500B5",
                 },

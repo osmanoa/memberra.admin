@@ -85,3 +85,25 @@ export const getVenues = async () => {
         throw error;
     }
 }
+
+// export const approvePendingUsers = async (data) => {
+//     try {
+//         const url = "/users/update-by-invite-code";
+//         const response = await api.put(url, data);
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error", error);
+//         throw error;
+//     }
+// }
+
+// export const disapprovePendingUsers = async (data) => {
+//     try {
+//         const url = "/users/disapprove";
+//         const response = await api.post(url, data);
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error", error);
+//         throw error;
+//     }
+// }

@@ -14,12 +14,12 @@ const Menuitems = [
     subheader: "Home",
     icon: RiHome2Fill,
     items: [
-      {
-        id: uniqueId(),
-        title: "Onboarding",
-        // icon: FaWpforms,
-        href: "/",
-      },
+      // {
+      //   id: uniqueId(),
+      //   title: "Onboarding",
+      //   // icon: FaWpforms,
+      //   href: "/",
+      // },
       {
         id: uniqueId(),
         title: "Memberras",
