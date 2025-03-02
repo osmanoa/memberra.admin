@@ -10,6 +10,8 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -17,7 +19,6 @@ import { getVenues, inviteUser } from "@/lib/api";
 
 const SelfInvitePage = () => {
   const { id } = useParams();
-  console.log("ID:", id);
   const [countryCode, setCountryCode] = useState("+1");
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -32,6 +33,8 @@ const SelfInvitePage = () => {
     email: false,
   });
   const [venue, setVenue] = useState<any>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [formVisible, setFormVisible] = useState(true);
 
   const handleCountryCodeChange = (event: any) => {
     setCountryCode(event.target.value);
@@ -93,7 +96,6 @@ const SelfInvitePage = () => {
         if (foundVenue) {
           setVenue(foundVenue);
         }
-        console.log("Fetched venues:", venues);
       } catch (error) {
         console.error("Error fetching venues:", error);
       }
@@ -105,7 +107,6 @@ const SelfInvitePage = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setTouched({ fullName: true, phoneNumber: true, email: true });
-    console.log("Venue:", venue);
     if (validateInputs()) {
       try {
         const inviteData = {
@@ -116,9 +117,13 @@ const SelfInvitePage = () => {
           venueName: venue?.venueName,
           venueLogo: venue?.venueLogo,
         };
-        console.log("Invite data:", inviteData);
         const response = await inviteUser(inviteData);
-        console.log("User invited successfully:", response);
+        if (response.message === "User invited successfully") {
+          setShowSuccess(true);
+          setFormVisible(false);
+        } else {
+          console.error("Error inviting user:", response);
+        }
       } catch (error) {
         console.error("Error inviting user:", error);
       }
@@ -192,7 +197,7 @@ const SelfInvitePage = () => {
               mb: 4,
             }}
           >
-            <img src="/images/logos/m-logo.svg" alt="Logo" width={"50%"} />
+            <img src="/images/logos/m-logo.svg" alt="Logo" width={"300px"} />
             <Typography
               variant="body1"
               fontStyle={"italic"}
@@ -200,122 +205,149 @@ const SelfInvitePage = () => {
             >
               Membership Innovation
             </Typography>
+            {showSuccess && (
+              <>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    background: "linear-gradient(90deg, #A500B5, #00C6FF)", // Gradient background
+                    WebkitBackgroundClip: "text", // Clip background to text
+                    color: "transparent", // Make text transparent to show gradient
+                    mt: 6,
+                    fontWeight: "bold", // Optional: make the text bold
+                  }}
+                >
+                  Invitation Sent!
+                </Typography>
+              </>
+            )}
           </Grid>
-          <Grid item xs={12} sx={{ display: "flex", gap: "10px" }}>
-            <TextField
-              fullWidth
-              label="Full Name"
-              variant="outlined"
-              error={!!fullNameError}
-              helperText={touched.fullName ? fullNameError : ""}
-              sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
-              inputProps={{
-                style: { color: "#FFFFFF" },
-                pattern: "[A-Za-z ]*", // Restrict input to letters and spaces
-                onKeyPress: (event) => {
-                  if (!/[A-Za-z ]/.test(event.key)) {
-                    event.preventDefault(); // Prevent non-letter input
-                  }
-                },
-                onChange: (e: any) => setFullName(e.target.value),
-                onBlur: () =>
-                  setTouched((prev) => ({ ...prev, fullName: true })),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: "flex", gap: "10px" }}>
-            <FormControl sx={{ width: "150px" }}>
-              <Select
-                value={countryCode}
-                onChange={handleCountryCodeChange}
-                sx={{ backgroundColor: "#0B1739", color: "#FFFFFF" }}
-              >
-                {countries.map((country) => (
-                  <MenuItem
-                    key={country.dial_code}
-                    value={country.dial_code}
-                    sx={{
-                      backgroundColor: "#081028", // Default background color
-                      color: "#FFFFFF", // Text color
-                      "&:hover": {
-                        backgroundColor: "#AEB9E1", // Change background color on hover
-                      },
-                    }}
+          {formVisible && (
+            <>
+              <Grid item xs={12} sx={{ display: "flex", gap: "10px" }}>
+                <TextField
+                  fullWidth
+                  label="Full Name"
+                  variant="outlined"
+                  error={!!fullNameError}
+                  helperText={touched.fullName ? fullNameError : ""}
+                  sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+                  inputProps={{
+                    style: { color: "#FFFFFF" },
+                    pattern: "[A-Za-z ]*", // Restrict input to letters and spaces
+                    onKeyPress: (event) => {
+                      if (!/[A-Za-z ]/.test(event.key)) {
+                        event.preventDefault(); // Prevent non-letter input
+                      }
+                    },
+                    onChange: (e: any) => setFullName(e.target.value),
+                    onBlur: () =>
+                      setTouched((prev) => ({ ...prev, fullName: true })),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sx={{ display: "flex", gap: "10px" }}>
+                <FormControl sx={{ width: "150px" }}>
+                  <Select
+                    value={countryCode}
+                    onChange={handleCountryCodeChange}
+                    sx={{ backgroundColor: "#0B1739", color: "#FFFFFF" }}
                   >
-                    <span
-                      style={{
-                        marginRight: "10px",
-                        backgroundColor: "#0B1739",
-                      }}
-                    >
-                      {country.flag}
-                    </span>
-                    {country.dial_code}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              fullWidth
-              label="Phone Number"
-              variant="outlined"
-              type="tel"
-              error={!!phoneNumberError}
-              helperText={touched.phoneNumber ? phoneNumberError : ""}
-              sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
-              inputProps={{
-                style: { color: "#FFFFFF" },
-                pattern: "[0-9]*", // Restrict input to digits
-                onKeyPress: (event) => {
-                  if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault(); // Prevent non-numeric input
-                  }
-                },
-                onChange: (e: any) => setPhoneNumber(e.target.value),
-                onBlur: () =>
-                  setTouched((prev) => ({ ...prev, phoneNumber: true })),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Email"
-              variant="outlined"
-              type="email"
-              error={!!emailError}
-              helperText={touched.email ? emailError : ""}
-              sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
-              inputProps={{
-                style: { color: "#FFFFFF" },
-                onChange: (e: any) => setEmail(e.target.value),
-                onBlur: () => setTouched((prev) => ({ ...prev, email: true })),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={!isFormValid}
-              sx={{
-                width: "40%",
-                mt: 3,
-                height: "50px",
-                fontSize: "16px",
-                fontWeight: "semibold",
-                backgroundColor: !isFormValid ? "red" : "primary.main",
-                color: !isFormValid ? "blue" : "white",
-                "&.Mui-disabled": {
-                  backgroundColor: "grey.300", // Disabled background color from theme
-                  color: "grey.500", // Disabled text color from theme
-                },
-              }}
-            >
-              Request Invitation
-            </Button>
-          </Grid>
+                    {countries.map((country) => (
+                      <MenuItem
+                        key={country.dial_code}
+                        value={country.dial_code}
+                        sx={{
+                          backgroundColor: "#081028", // Default background color
+                          color: "#FFFFFF", // Text color
+                          "&:hover": {
+                            backgroundColor: "#AEB9E1", // Change background color on hover
+                          },
+                        }}
+                      >
+                        <span
+                          style={{
+                            marginRight: "10px",
+                            backgroundColor: "#0B1739",
+                          }}
+                        >
+                          {country.flag}
+                        </span>
+                        {country.dial_code}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <TextField
+                  fullWidth
+                  label="Phone Number"
+                  variant="outlined"
+                  type="tel"
+                  error={!!phoneNumberError}
+                  helperText={touched.phoneNumber ? phoneNumberError : ""}
+                  sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+                  inputProps={{
+                    style: { color: "#FFFFFF" },
+                    pattern: "[0-9]*", // Restrict input to digits
+                    onKeyPress: (event) => {
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault(); // Prevent non-numeric input
+                      }
+                    },
+                    onChange: (e: any) => setPhoneNumber(e.target.value),
+                    onBlur: () =>
+                      setTouched((prev) => ({ ...prev, phoneNumber: true })),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  type="email"
+                  error={!!emailError}
+                  helperText={touched.email ? emailError : ""}
+                  sx={{ backgroundColor: "#0B1739", borderRadius: "4px" }}
+                  inputProps={{
+                    style: { color: "#FFFFFF" },
+                    onChange: (e: any) => setEmail(e.target.value),
+                    onBlur: () => setTouched((prev) => ({ ...prev, email: true })),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={!isFormValid}
+                  sx={{
+                    width: "40%",
+                    mt: 3,
+                    height: "50px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    background: isFormValid
+                      ? "linear-gradient(90deg, #A500B5, #00C6FF)" // Gradient background when enabled
+                      : "grey.300", // Grey background when disabled
+                    color: isFormValid ? "white" : "grey.500", // White text when enabled, grey when disabled
+                    "&:hover": {
+                      background: isFormValid
+                        ? "linear-gradient(90deg, #A500B5, #00C6FF)" // Keep gradient on hover when enabled
+                        : "grey.300", // Keep grey when disabled
+                    },
+                    "&.Mui-disabled": {
+                      backgroundColor: "grey.300", // Disabled background color from theme
+                      color: "grey.500", // Disabled text color from theme
+                    },
+                  }}
+                >
+                  Request Invitation
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       </DashboardCard>
     </Box>
